@@ -1,0 +1,17 @@
+﻿#chat-header {
+    display: flex;
+    border-bottom: 1px solid lightgray;
+    padding: 0.5em;
+    justify-content: space-between;
+    align-items: center;
+    height: 10%;
+}
+
+#chat-header-name{
+    font-weight: 600;
+
+}
+
+#chat-header-leave {
+    color: white;
+}
