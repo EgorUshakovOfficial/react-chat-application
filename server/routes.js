@@ -4,6 +4,13 @@ const { ensureAuthenticated } = require('./auth/ensureAuthenticated');
 const { genAuthToken, genRefreshToken } = require('./jwts/gentoken');
 const jwt = require('jsonwebtoken'); 
 
+// Cookie options 
+const COOKIE_OPTS = {
+    httpOnly: true,
+    secure: true,
+    maxAge: 24 * 60 * 60 * 1000
+}
+
 module.exports = (app, User) => {
     // Home
     app.get('/', (req, res) => {
@@ -81,9 +88,7 @@ module.exports = (app, User) => {
                                 if (err) {
                                     throw new Error(err); 
                                 } else {
-                                    res.cookie("refreshToken", newRefreshToken, {
-                                        httpOnly: false
-                                    });
+                                    res.cookie("refreshToken", newRefreshToken, COOKIE_OPTS);
                                     console.log(authToken);
                                     res.json({ authToken }); 
                                 }
@@ -113,9 +118,7 @@ module.exports = (app, User) => {
                         if (err) {
                             throw new Error(err); 
                         } else {
-                            res.cookie("refreshToken", refreshToken, {
-                                httpOnly: false
-                            });
+                            res.cookie("refreshToken", refreshToken, COOKIE_OPTS);
                             res.json({authToken})
                         }
                     })

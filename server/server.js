@@ -14,7 +14,7 @@ const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
 const { Server } = require("socket.io");
 const io = new Server(server); 
-
+const path = require("path"); 
 // Dotenv
 require('dotenv').config();
 
@@ -23,7 +23,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 
 // Middleware 
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "https://friends-book1.herokuapp.com",
     credentials: true,
     methods:["GET", "POST"]
 }));
@@ -34,7 +34,7 @@ app.use(session({
     secret:process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false },
+    cookie: { secure: true },
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
 }))
 app.use(passport.initialize());
@@ -54,7 +54,7 @@ io.use(wrap(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false },
+    cookie: { secure: true },
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
 })));
 io.use(wrap(passport.initialize()));
@@ -132,6 +132,15 @@ io.on("connection", socket => {
     })
 })
 
+// Serve static assets if in production 
+if (process.env.NODE_ENV === "production") {
+    // Set static folder 
+    app.use(express.static('client/build'));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html")); 
+    })
+}
 
 // Initialize server 
 const PORT = process.env.PORT || 3001;
