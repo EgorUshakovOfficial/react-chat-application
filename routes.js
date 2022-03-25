@@ -20,6 +20,7 @@ module.exports = (app, User) => {
     // Profile 
     app.post('/profile', passport.authenticate('jwt', { session: false }),
         (req, res) => {
+            console.log(req.user);
             res.json({user: req.user});
         }
     );
@@ -77,7 +78,6 @@ module.exports = (app, User) => {
             User
                 .findOne({ _id })
                 .then(user => {
-                    console.log(user);
                     if (user) {
                         const refreshTokenMatch = (user.refreshtoken === refreshToken);
                         if (refreshTokenMatch) {
