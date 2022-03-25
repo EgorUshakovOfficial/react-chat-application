@@ -20,6 +20,7 @@ const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogi
     let cookieRegex = /(refreshToken=\w+;?)/gi;
     const refreshTokenExist = cookieRegex
         .test(document.cookie);
+    console.log(document.cookie);
     console.log(refreshTokenExist);
     useEffect(() => {
         if (refreshTokenExist && !authToken) {
