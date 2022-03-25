@@ -46,6 +46,8 @@ app.use(passport.session());
 auth();
 
 // Routes 
+app.get("/favicon.ico", (req, res) => res.status(204)); 
+
 routes(app, User);
 
 // Socket Io middleware
