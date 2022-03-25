@@ -20,9 +20,10 @@ const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogi
     let cookieRegex = /(refreshToken=\w+;?)/gi;
     const refreshTokenExist = cookieRegex
         .test(document.cookie);
-
+    console.log(refreshTokenExist);
     useEffect(() => {
         if (refreshTokenExist && !authToken) {
+            console.log("refresh executed....")
             fetch('https://friends-book1.herokuapp.com/refreshToken', {
                 method: "POST",
                 headers: {
