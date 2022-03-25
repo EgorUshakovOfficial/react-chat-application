@@ -42,6 +42,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(session({
+    key:"express.sid",
     cookieParser: cookieParser,
     secret:process.env.SESSION_SECRET,
     resave: false,
@@ -63,6 +64,7 @@ routes(app, User);
 // Socket Io middleware
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 io.use(wrap(session({
+    key: "express.sid",
     cookieParser: cookieParser,
     secret: process.env.SESSION_SECRET,
     resave: false,
