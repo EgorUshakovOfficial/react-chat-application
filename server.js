@@ -42,6 +42,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(session({
+    cookieParser: cookieParser,
     secret:process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
@@ -62,10 +63,11 @@ routes(app, User);
 // Socket Io middleware
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 io.use(wrap(session({
+    cookieParser: cookieParser,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true },
+    cookie: { secure: true},
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
 })));
 io.use(wrap(passport.initialize()));
