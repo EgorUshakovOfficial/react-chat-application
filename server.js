@@ -47,7 +47,11 @@ app.use(session({
     secret:process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true },
+    cookie: {
+        secure:true,
+        maxAge: 86400,
+        sameSite: "none"
+    },
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
 }))
 app.use(passport.initialize());
@@ -69,7 +73,11 @@ io.use(wrap(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true},
+    cookie: {
+        secure: true,
+        maxAge: 86400,
+        sameSite: "none"
+    },
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
 })));
 io.use(wrap(passport.initialize()));
