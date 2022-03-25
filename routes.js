@@ -13,7 +13,7 @@ const COOKIE_OPTS = {
 
 module.exports = (app, User) => {
     // Home
-    app.get('/', (req, res) => {
+    app.get('/none', (req, res) => {
         res.send({authToken: ""});
     })
 
@@ -105,7 +105,7 @@ module.exports = (app, User) => {
     })
 
     // Login 
-    app.post('/login', passport.authenticate('local', {failureRedirect: '/'}),
+    app.post('/login', passport.authenticate('local', {failureRedirect: '/none'}),
         (req, res, next) => {
             const { _id } = req.user;
             const authToken = genAuthToken({ _id }); 
