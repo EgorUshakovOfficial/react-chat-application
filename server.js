@@ -21,12 +21,20 @@ require('dotenv').config();
 // Connect to db 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
+// Middleware functions 
+const ignoreFavicon = (req, res, next)=>{
+    if (req.originalUrl.includes('favicon.ico')) {
+        res.status(204).end()
+    }
+    next();
+}
 // Middleware 
 app.use(cors({
     origin: "https://friends-book1.herokuapp.com",
     credentials: true,
     methods:["GET", "POST"]
 }));
+app.use(ignoreFavicon);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser(process.env.SESSION_SECRET));
@@ -46,8 +54,6 @@ app.use(passport.session());
 auth();
 
 // Routes 
-app.get("/favicon.ico", (req, res) => res.status(204)); 
-
 routes(app, User);
 
 // Socket Io middleware
