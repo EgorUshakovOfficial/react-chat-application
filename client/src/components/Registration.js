@@ -13,7 +13,7 @@ const Registration = (props) => {
     const handleRegistration = e => {
         e.preventDefault();
         setError(""); 
-        fetch('http://localhost:3001/register', {
+        fetch('https://friends-book1.herokuapp.com/register', {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({

@@ -15,7 +15,7 @@ const Login = ({ updateToken }) => {
             "Content-type": "application/json"
         }
 
-        fetch('http://localhost:3001/login', {
+        fetch('https://friends-book1.herokuapp.com/login', {
             method: "POST",
             headers,
             body: JSON.stringify({

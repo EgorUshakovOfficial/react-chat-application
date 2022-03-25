@@ -2,7 +2,7 @@ import chatheader from '../styles/chatheader.css';
 
 const ChatHeader = ({ logout, user}) => {
     const handleLogout = () => {
-        fetch('http://localhost:3001/logout', {
+        fetch('https://friends-book1.herokuapp.com/logout', {
             method: "POST",
             headers: {
                 'Content-type': "application/json",
