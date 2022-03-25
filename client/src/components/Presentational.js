@@ -23,7 +23,7 @@ const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogi
 
     useEffect(() => {
         if (refreshTokenExist && !authToken) {
-            fetch('http://localhost:3001/refreshToken', {
+            fetch('https://friends-book1.herokuapp.com/refreshToken', {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",

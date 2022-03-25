@@ -9,7 +9,7 @@ export const fetchLogin = authToken => dispatch => {
     // Requesting user data
     dispatch(requestingUser());
 
-    return fetch('http://localhost:3001/profile', {
+    return fetch('https://friends-book1.herokuapp.com/profile', {
         method: "POST",
         headers: {
             "Content-type": "application/json",
