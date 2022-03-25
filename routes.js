@@ -107,6 +107,7 @@ module.exports = (app, User) => {
     // Login 
     app.post('/login', passport.authenticate('local', {failureRedirect: '/none'}),
         (req, res, next) => {
+            console.log(req.user);
             const { _id } = req.user;
             const authToken = genAuthToken({ _id }); 
             const refreshToken = genRefreshToken({ _id }); 
