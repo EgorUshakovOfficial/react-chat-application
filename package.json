@@ -18,6 +18,7 @@
     "Chat",
     "Application"
   ],
+  "proxy": true,
   "author": "Egor Ushakov",
   "license": "MIT",
   "dependencies": {

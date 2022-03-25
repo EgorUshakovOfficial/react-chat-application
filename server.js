@@ -33,7 +33,7 @@ const ignoreFavicon = (req, res, next)=>{
 }
 // Middleware 
 app.use(cors({
-    origin: "https://friends-book1.herokuapp.com",
+    origin: "*",
     credentials: true,
     methods:["GET", "POST"]
 }));
