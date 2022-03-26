@@ -128,7 +128,7 @@ io.on("connection", socket => {
 
     // Disconnect 
     socket.on('disconnect', () => {
-        console.log(`User with ${socket.id} disconnected`)
+        console.log(`User with ${socket.id} connected`)
         User
             .findOne({ _id })
             .then(user => {
