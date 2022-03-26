@@ -8,8 +8,7 @@ const jwt = require('jsonwebtoken');
 const COOKIE_OPTS = {
     httpOnly: true,
     secure: true,
-    maxAge: 24 * 60 * 60 * 1000,
-    signed:true
+    maxAge: 24 * 60 * 60 * 1000
 }
 
 module.exports = (app, User) => {
@@ -76,7 +75,7 @@ module.exports = (app, User) => {
         const hasRefreshToken = cookies.hasOwnProperty("refreshToken")
         if (hasRefreshToken) {
             try {
-                const { refreshToken } = signedCookies;
+                const { refreshToken } = cookies;
                 const payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
                 const { _id } = payload;
                 User
