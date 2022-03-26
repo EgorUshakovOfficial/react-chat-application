@@ -73,7 +73,7 @@ module.exports = (app, User) => {
     app.post('/refreshToken', (req, res) => {
         const { signedCookies  = {} } = req;
         const { refreshToken } = signedCookies;
-        if (hasRefreshToken) {
+        if (refreshToken) {
             try {
                 const payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
                 const { _id } = payload;
