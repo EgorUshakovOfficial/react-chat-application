@@ -71,9 +71,9 @@ module.exports = (app, User) => {
 
     // Auth token
     app.post('/refreshToken', (req, res) => {
-        const { signedCookies } = req;
-        console.log(signedCookies);
-        const hasRefreshToken = signedCookies.hasOwnProperty("refreshToken")
+        const { cookies } = req;
+        console.log(cookies);
+        const hasRefreshToken = cookies.hasOwnProperty("refreshToken")
         if (hasRefreshToken) {
             try {
                 const { refreshToken } = signedCookies;
