@@ -70,8 +70,7 @@ module.exports = (app, User) => {
 
     // Auth token
     app.post('/refreshToken', (req, res) => {
-        const { cookies } = req;
-        console.log(req);
+        const { cookies = {} } = req;
         const hasRefreshToken = cookies.hasOwnProperty("refreshToken")
         if (hasRefreshToken) {
             try {
