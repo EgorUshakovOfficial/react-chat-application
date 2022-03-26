@@ -92,6 +92,7 @@ io.use((socket, next) => {
 
 // Socket Io events  
 io.on("connection", socket => {
+    console.log(`User with ${socket.id} connected`)
     const { firstName, lastName, _id} = socket.request.user; 
 
     // Active users
@@ -127,6 +128,7 @@ io.on("connection", socket => {
 
     // Disconnect 
     socket.on('disconnect', () => {
+        console.log(`User with ${socket.id} disconnected`)
         User
             .findOne({ _id })
             .then(user => {
