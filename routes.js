@@ -8,7 +8,8 @@ const jwt = require('jsonwebtoken');
 const COOKIE_OPTS = {
     httpOnly: true,
     secure: true,
-    maxAge: 24 * 60 * 60 * 1000
+    maxAge: 24 * 60 * 60 * 1000,
+    signed:true
 }
 
 module.exports = (app, User) => {
@@ -20,7 +21,6 @@ module.exports = (app, User) => {
     // Profile 
     app.post('/profile', passport.authenticate('jwt', { session: false }),
         (req, res) => {
-            console.log(req.user);
             res.json({user: req.user});
         }
     );
@@ -71,36 +71,46 @@ module.exports = (app, User) => {
 
     // Auth token
     app.post('/refreshToken', (req, res) => {
-        const refreshToken = req.cookies["refreshToken"];
-        try {
-            const payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-            const { _id } = payload;
-            User
-                .findOne({ _id })
-                .then(user => {
-                    if (user) {
-                        const refreshTokenMatch = (user.refreshtoken === refreshToken);
-                        if (refreshTokenMatch) {
-                            const authToken = genAuthToken({ _id: user._id});
-                            const newRefreshToken = genRefreshToken({ _id: user._id });
-                            user.refreshtoken = newRefreshToken;
-                            user.save((err, doc) => {
-                                if (err) {
-                                    throw new Error(err); 
-                                } else {
-                                    res.cookie("refreshToken", newRefreshToken, COOKIE_OPTS);
-                                    console.log(authToken);
-                                    res.json({ authToken }); 
-                                }
+        const { signedCookies } = req; 
+        const hasRefreshToken = signedCookies.hasOwnProperty("refreshToken")
+        if (hasRefreshToken) {
+            try {
+                const { refreshToken } = signedCookies;
+                const payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+                const { _id } = payload;
+                User
+                    .findOne({ _id })
+                    .then(user => {
+                        if (user) {
+                            const refreshTokenMatch = (user.refreshtoken === refreshToken);
+                            if (refreshTokenMatch) {
+                                const authToken = genAuthToken({ _id: user._id });
+                                const newRefreshToken = genRefreshToken({ _id: user._id });
+                                user.refreshtoken = newRefreshToken;
+                                user.save((err, doc) => {
+                                    if (err) {
+                                        throw new Error(err);
+                                    } else {
+                                        res.cookie("refreshToken", newRefreshToken, COOKIE_OPTS);
+                                        res.json({ authToken });
+                                    }
 
-                            })
+                                })
+                            }
+                        } else {
+                            res.statusCode = 401;
+                            res.send("Unauthorized");
                         }
-                    }
-                })
-                .catch(err => {throw new Error(err)});
-        }
-        catch (err) {
-            throw new Error(err); 
+                    })
+                    .catch(err => { throw new Error(err) });
+            }
+            catch (err) {
+                res.statusCode = 401
+                res.send("Unauthorized")
+            }
+        } else {
+            res.statusCode = 401;
+            res.send("Unauthorized");
         }
     })
 

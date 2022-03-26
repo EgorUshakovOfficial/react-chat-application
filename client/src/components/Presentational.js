@@ -15,16 +15,10 @@ const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogi
     let authToken  = store.getState().authToken.authToken;
     let user       = store.getState().user.user;
     let loading = store.getState().load.loading;
+    let fetchedAuthToken = store.getState().authToken.fetchedAuthToken;
 
-    // Cookie
-    let cookieRegex = /(refreshToken=\w+;?)/gi;
-    const refreshTokenExist = cookieRegex
-        .test(document.cookie);
-    console.log(document.cookie);
-    console.log(refreshTokenExist);
     useEffect(() => {
-        if (refreshTokenExist && !authToken) {
-            console.log("refresh executed....")
+        if (!authToken && fetchedAuthToken === false) {
             fetch('https://friends-book1.herokuapp.com/refreshToken', {
                 method: "POST",
                 headers: {
@@ -33,16 +27,20 @@ const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogi
                 },
                 credentials: "include"
             })
-                .then(res => res.json())
-                .then(data => {
-                    updateToken(data.authToken);
+                .then(async res => {
+                    if (res.ok && res.status === 200) {
+                        const data = await res.json();
+                        updateToken(data.authToken);
+                    } else {
+                        updateToken(""); 
+                    }
                 })
                 .catch(err => {
-                    // Do something here...
+                    console.log(err); 
                 })
         }
 
-        else if (refreshTokenExist && authToken && user === false) {
+        else if (authToken && user === false) {
             fetchLogin(authToken);
         }
         else if (loading) {

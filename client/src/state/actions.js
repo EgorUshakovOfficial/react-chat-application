@@ -6,7 +6,7 @@ export const addLogout = () => ({ type: "LOGOUT", authToken: "" });
 export const requestingUser = () => ({ type: "REQUESTING_USER"});
 export const userSuccess = user => ({ type: "USER_SUCCESS", user });
 export const userError = () => ({ type: "USER_FAILURE", user: [] });
-export const addLoading = () => ({ type: "LOADING" }); 
+export const addLoading = () => ({ type: "LOADING" });
 
 
 export default {

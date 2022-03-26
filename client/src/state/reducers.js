@@ -5,14 +5,15 @@ const defaultState = {
     authToken: "",
     messages: [],
     loading: true,
-    user: false
+    user: false,
+    fetchedAuthToken: false
 };
 
 // Auth token reducer 
 const updateAuthTokenReducer = (state = defaultState, action) => {
     switch (action.type) {
         case "UPDATE_AUTH_TOKEN":
-            return Object.assign({}, state, { authToken: action.authToken });
+            return Object.assign({}, state, { authToken: action.authToken, fetchedAuthToken:true});
         case "LOGOUT":
             return Object.assign({}, state, {authToken:""})
         default:
