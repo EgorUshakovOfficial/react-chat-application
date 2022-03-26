@@ -13,6 +13,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     useEffect(() => {
         // New connection 
         const socket = io("https://friends-book1.herokuapp.com/");
+        console.log(socket);
         setSocket(socket);
 
         // Active users
