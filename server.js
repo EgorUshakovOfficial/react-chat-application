@@ -12,8 +12,7 @@ const auth = require('./auth/auth');
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
-const { Server } = require("socket.io");
-const io = new Server(server);
+const io = require("socket.io")(server);
 console.log(io);
 const path = require("path");
 
@@ -168,5 +167,5 @@ if (process.env.NODE_ENV === "production") {
     })
 }
 // Initialize server 
-const PORT =  443;
+const PORT = process.env.PORT || 443;
 server.listen(PORT,  () => console.log(`Listening on port ${PORT}...`));
