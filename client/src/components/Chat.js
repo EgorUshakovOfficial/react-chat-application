@@ -12,7 +12,12 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     const [activeUsers, setActiveUsers] = useState([]); 
     useEffect(() => { 
         // New connection 
-        const socket = io("https://friends-book1.herokuapp.com/", { transports: ['websocket'] });
+        const socket = io("https://friends-book1.herokuapp.com/", {
+            transports: ['websocket'],
+            upgrades: ["websocket"],
+            pingInterval: 25000,
+            pingTimeout: 5000
+        });
         console.log(socket.connected); 
         setSocket(socket);
   
