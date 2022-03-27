@@ -13,7 +13,7 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
 const io = require("socket.io")(server, {
-    path: '/socket.io'
+    path: '/socket.io/'
 });
 
 const path = require("path"); 
