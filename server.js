@@ -14,6 +14,7 @@ const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
 const { Server } = require("socket.io");
 const io = new Server(server);
+console.log(io);
 const path = require("path");
 
 // Dotenv
@@ -94,7 +95,7 @@ io.use((socket, next) => {
 io.on("connection", socket => {
     console.log(`User with ${socket.id} connected`)
     const { firstName, lastName, _id} = socket.request.user; 
-
+   
     // Active users
     User
     .findOne({_id})
