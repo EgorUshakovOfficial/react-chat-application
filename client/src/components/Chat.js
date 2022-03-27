@@ -19,7 +19,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
         }
 
         // New connection 
-        const socket = io("https://friends-book1.herokuapp.com/", options);
+        const socket = io("wss://friends-book1.herokuapp.com/", options);
         setSocket(socket);
 
         // Active users
