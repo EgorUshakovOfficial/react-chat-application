@@ -17,7 +17,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
 
         setSocket(socket)
 
-        socket.on("connect", () => console.log("User is connected..."))
+  /*      socket.on("connect", () => console.log("User is connected..."))*/
 
         // Active users
         socket.on("user joined", users => {
