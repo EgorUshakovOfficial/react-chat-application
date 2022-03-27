@@ -18,6 +18,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
             pingInterval: 25000,
             pingTimeout: 5000
         });
+        console.log(socket);
         console.log(socket.connected); 
         setSocket(socket);
   

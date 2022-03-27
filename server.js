@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-/*const server = require("http").createServer(app);*/
+const server = require("http").createServer(app);
 const mongoose = require("mongoose");
 const routes = require('./routes');
 const { User } = require('./models/User');
@@ -11,23 +11,10 @@ const auth = require('./auth/auth');
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
-
+const io = require("socket.io")(server);
 const path = require("path");
 
-// Http-proxy 
-const httpProxy = require("http-proxy");
-httpProxy
-    .createProxyServer({
-        target: "https://friends-book1.herokuapp.com/",
-        ws: true,
-}).listen(443);
-
-// Io
-const io = require("socket.io")(httpProxy, {
-    cors: {
-        origin: "*",
-        credentials: true}
-});
+console.log(server); 
 
 // Dotenv
 require('dotenv').config();
@@ -180,5 +167,5 @@ if (process.env.NODE_ENV === "production") {
     })
 }
 // Initialize server 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT,  () => console.log(`Listening on port ${PORT}...`));
+const PORT = process.env.PORT || 443;
+server.listen(PORT,  () => console.log(`Listening on port ${PORT}...`));
