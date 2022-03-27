@@ -6,8 +6,7 @@ import {
     Route
 } from 'react-router-dom';
 import Home from './Home';
-import Chat from './Chat';
-import { io } from 'socket.io-client';
+import Chat from './Chat'; 
 
 const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogin}) => {
     const { store } = useContext(ReactReduxContext);
@@ -17,13 +16,6 @@ const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogi
     let user       = store.getState().user.user;
     let loading = store.getState().load.loading;
     let fetchedAuthToken = store.getState().authToken.fetchedAuthToken;
-
-    const socket = io("https://friends-book1.herokuapp.com/", {
-        transports: ['websocket'],
-        upgrades: ["websocket"],
-        pingInterval: 25000,
-        pingTimeout: 5000
-    });
 
     useEffect(() => {
         if (!authToken && fetchedAuthToken === false) {

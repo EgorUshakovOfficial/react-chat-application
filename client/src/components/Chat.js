@@ -9,17 +9,16 @@ import chat from '../styles/chat.css';
 const Chat = ({ user, submitNewMessage, logout }) => {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
-    const [activeUsers, setActiveUsers] = useState([]); 
+    const [activeUsers, setActiveUsers] = useState([]);
+
     useEffect(() => { 
         // New connection 
-        const socket = io("https://friends-book1.herokuapp.com/", {
-            transports: ['websocket'],
-            upgrades: ["websocket"],
-            pingInterval: 25000,
-            pingTimeout: 5000
-        });
+        const socket = io();
 
-  
+        setSocket(socket)
+
+        socket.on("connect", () => console.log("User is connected..."))
+
         // Active users
         socket.on("user joined", users => {
             setActiveUsers(users); 
@@ -34,8 +33,6 @@ const Chat = ({ user, submitNewMessage, logout }) => {
         socket.on("message", data => {
             setMessages(messages => [...messages, data]); 
         })
-
-        setSocket(socket);
 
         // Clean up
         return () => socket.disconnect();
