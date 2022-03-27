@@ -12,8 +12,8 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     const [activeUsers, setActiveUsers] = useState([]); 
     useEffect(() => { 
         // New connection 
-        const socket = io();
-        setSocket(socket, { transports: ['websocket'] });
+        const socket = io("https://friends-book1.herokuapp.com/", { transports: ['websocket'] });
+        setSocket(socket);
   
         // Active users
         socket.on("user joined", users => {
