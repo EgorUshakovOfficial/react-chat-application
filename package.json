@@ -30,7 +30,6 @@
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "find-config": "^1.0.0",
-    "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.4.1",
     "mongoose": "^6.2.4",
