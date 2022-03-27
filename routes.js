@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 // Cookie options 
 const COOKIE_OPTS = {
     httpOnly: true,
-    secure: true,
+    secure: false,
     maxAge: 24 * 60 * 60 * 1000,
     signed: true
 }

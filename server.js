@@ -50,7 +50,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure:true,
+        secure:false,
         maxAge: 86400,
         sameSite: "none"
     },
@@ -76,7 +76,7 @@ io.use(wrap(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: true,
+        secure: false,
         maxAge: 86400,
         sameSite: "none"
     },
