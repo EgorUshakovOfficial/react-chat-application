@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { Connection } from '../context/socket'; 
+import { io } from 'socket.io-client';
 import Messages from './Messages';
 import Users from './Users';
 import ChatHeader from './ChatHeader';
@@ -11,9 +12,6 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     const [activeUsers, setActiveUsers] = useState([]); 
     useEffect(() => { 
         const options = {
-            "force new connection": true,
-            reconnectionAttempts: "Infinity",
-            timeout: 10000,
             transports: ["websocket"]
         }
 
