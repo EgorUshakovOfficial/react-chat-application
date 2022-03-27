@@ -22,7 +22,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://friends-book1.herokuapp.com",
   "eslintConfig": {
     "extends": [
       "react-app",
