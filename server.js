@@ -34,8 +34,7 @@ const ignoreFavicon = (req, res, next)=>{
 // Middleware 
 app.use(cors({
     origin: "*",
-    credentials: true,
-    methods:["GET", "POST"]
+    credentials: true
 }));
 app.use(ignoreFavicon);
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -167,5 +166,5 @@ if (process.env.NODE_ENV === "production") {
     })
 }
 // Initialize server 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
