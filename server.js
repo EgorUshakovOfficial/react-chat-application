@@ -12,10 +12,7 @@ const auth = require('./auth/auth');
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
-const io = require("socket.io")(server, cors({
-    origin: "*",
-    credentials: true
-}));
+const io = require("socket.io")(server);
 const path = require("path");
 
 // Dotenv
@@ -50,7 +47,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure:false,
+        secure:true,
         maxAge: 86400,
         sameSite: "none"
     },
@@ -76,7 +73,7 @@ io.use(wrap(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: false,
+        secure: true,
         maxAge: 86400,
         sameSite: "none"
     },
