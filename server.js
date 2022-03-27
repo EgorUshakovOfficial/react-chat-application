@@ -12,9 +12,7 @@ const auth = require('./auth/auth');
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
-const io = require("socket.io")(server, {
-    path: '/socket.io/'
-});
+const io = require("socket.io")(server, { cors: {} });
 
 console.log(io); 
 
