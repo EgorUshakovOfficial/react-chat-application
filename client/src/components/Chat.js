@@ -10,9 +10,16 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [activeUsers, setActiveUsers] = useState([]); 
-    useEffect(() => {
+    useEffect(() => { 
+        const options = {
+            "force new connection": true,
+            reconnectionAttempts: "Infinity",
+            timeout: 10000,
+            transports: ["websocket"]
+        }
+
         // New connection 
-        const socket = io("https://friends-book1.herokuapp.com/", {secure: true});
+        const socket = io("https://friends-book1.herokuapp.com/", options);
         setSocket(socket);
 
         // Active users
