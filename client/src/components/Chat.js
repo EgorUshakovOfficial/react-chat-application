@@ -18,10 +18,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
             pingInterval: 25000,
             pingTimeout: 5000
         });
-        console.log(socket);
-        console.log(socket.connected);
-        socket.emit("connection"); 
-        setSocket(socket);
+
   
         // Active users
         socket.on("user joined", users => {
@@ -37,6 +34,8 @@ const Chat = ({ user, submitNewMessage, logout }) => {
         socket.on("message", data => {
             setMessages(messages => [...messages, data]); 
         })
+
+        setSocket(socket);
 
         // Clean up
         return () => socket.disconnect();
