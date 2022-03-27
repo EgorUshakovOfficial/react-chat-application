@@ -13,9 +13,8 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     useEffect(() => { 
         // New connection 
         const socket = io();
-        setSocket(socket);
-        console.log(socket);
-
+        setSocket(socket, { transports: ['websocket'] });
+  
         // Active users
         socket.on("user joined", users => {
             setActiveUsers(users); 
