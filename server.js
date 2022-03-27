@@ -168,4 +168,4 @@ if (process.env.NODE_ENV === "production") {
 }
 // Initialize server 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, "https://friends-book1.herokuapp.com/",  () => console.log(`Listening on port ${PORT}...`));
+server.listen(PORT,  () => console.log(`Listening on port ${PORT}...`));
