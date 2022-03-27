@@ -165,5 +165,5 @@ if (process.env.NODE_ENV === "production") {
     })
 }
 // Initialize server 
-const PORT = process.env.PORT || 443;
+const PORT = process.env.PORT || 8080;
 server.listen(PORT,  () => console.log(`Listening on port ${PORT}...`));
