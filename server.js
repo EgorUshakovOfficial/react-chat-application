@@ -16,6 +16,8 @@ const io = require("socket.io")(server, {
     path: '/socket.io/'
 });
 
+console.log(io); 
+
 const path = require("path"); 
 // Dotenv
 require('dotenv').config();

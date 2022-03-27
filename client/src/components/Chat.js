@@ -15,6 +15,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
         const socket = io("https://friends-book1.herokuapp.com", {
             transports: ["websocket", "polling"]
         });
+        console.log(socket)
         setSocket(socket);
 
         // Active users
