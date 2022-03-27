@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
 import { Connection } from '../context/socket'; 
-import { io } from 'socket.io-client';
 import Messages from './Messages';
 import Users from './Users';
 import ChatHeader from './ChatHeader';
@@ -19,7 +18,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
         }
 
         // New connection 
-        const socket = io("wss://friends-book1.herokuapp.com/", options);
+        const socket = io("http://friends-book1.herokuapp.com/", options);
         setSocket(socket);
 
         // Active users
