@@ -13,7 +13,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
 
     useEffect(() => { 
         // New connection 
-        const socket = io(window.location, { transports: ['websocket']});
+        const socket = io("/", { transports: ['websocket']});
 
         setSocket(socket)
 
