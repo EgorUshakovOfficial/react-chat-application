@@ -12,7 +12,10 @@ const auth = require('./auth/auth');
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
-const io = require("socket.io")(server, {port: 443});
+const io = require("socket.io")(server, cors({
+    origin: "*",
+    credentials: true
+}));
 const path = require("path");
 
 // Dotenv
