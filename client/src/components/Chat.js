@@ -10,9 +10,8 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     //let [socket, setSocket] = useState(null);
     //const [messages, setMessages] = useState([]);
     //const [activeUsers, setActiveUsers] = useState([]);
-    let socket = io('https://friends-book1.herokuapp.com', {
+    let socket = io({
         withCredentials: true,
-        forceNew: true,
         reconnectionAttempts: "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
         timeout: 10000, //before connect_error and connect_timeout are emitted.
         transports: ['websocket']
