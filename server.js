@@ -11,7 +11,13 @@ const auth = require('./auth/auth');
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
-const io = require("socket.io")(server, { transports: ['websocket', 'polling'] });
+const io = require("socket.io")(server, {
+    cors: {
+        origin: "https://friends-book1.herokuapp.com/",
+        methods: ["GET", "POST"]
+    },
+    transports: ['websocket', 'polling']
+});
 const path = require("path");
 
 console.log(server); 
