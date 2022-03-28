@@ -7,9 +7,9 @@ import ChatHeader from './ChatHeader';
 import chat from '../styles/chat.css';
 
 const Chat = ({ user, submitNewMessage, logout }) => {
-    //let [socket, setSocket] = useState(null);
-    //const [messages, setMessages] = useState([]);
-    //const [activeUsers, setActiveUsers] = useState([]);
+    let [socket, setSocket] = useState(null);
+    const [messages, setMessages] = useState([]);
+    const [activeUsers, setActiveUsers] = useState([]);
 
     useEffect(() => { 
         // New connection 
@@ -22,7 +22,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
 
         socket.on("connect", () => console.log(`User with ${socket.id} is connected...`))
 
-        //setSocket(socket)
+        setSocket(socket)
 
         //// Active users
         //socket.on("user joined", users => {
@@ -45,11 +45,11 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     }, [])
     return (
         <div id="chat">
-            {/*<Users activeUsers={activeUsers} />*/}
-            {/*<div id="right-panel">*/}
-            {/*    <ChatHeader logout={logout} user={user} />*/}
-            {/*    <Messages socket={socket} messages={messages}/>*/}
-            {/*</div>*/}
+            <Users activeUsers={activeUsers} />
+            <div id="right-panel">
+                <ChatHeader logout={logout} user={user} />
+                <Messages socket={socket} messages={messages}/>
+            </div>
         </div>
     );
 }
