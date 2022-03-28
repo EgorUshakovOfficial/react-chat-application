@@ -38,11 +38,11 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     }, [])
     return (
         <div id="chat">
-            <Users activeUsers={activeUsers} />
-            <div id="right-panel">
-                <ChatHeader logout={logout} user={user} />
-                <Messages socket={socket} messages={messages}/>
-            </div>
+            {/*<Users activeUsers={activeUsers} />*/}
+            {/*<div id="right-panel">*/}
+            {/*    <ChatHeader logout={logout} user={user} />*/}
+            {/*    <Messages socket={socket} messages={messages}/>*/}
+            {/*</div>*/}
         </div>
     );
 }
