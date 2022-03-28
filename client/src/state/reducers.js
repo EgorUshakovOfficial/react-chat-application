@@ -25,11 +25,11 @@ const updateAuthTokenReducer = (state = defaultState, action) => {
 const userReducer = (state = defaultState, action) => {
     switch (action.type) {
         case "REQUESTING_USER":
-            return Object.assign({}, state, { loading: true, user:[]})
+            return Object.assign({}, state, {  user:[]})
         case "USER_SUCCESS":
-            return Object.assign({}, state, { loading: false, user: action.user})
+            return Object.assign({}, state, { user: action.user})
         case "USER_FAILURE":
-            return Object.assign({}, state, { loading: false, user: [] })
+            return Object.assign({}, state, {  user: [] })
         case "LOGOUT":
             return Object.assign({}, state, {user: false })
         default:
