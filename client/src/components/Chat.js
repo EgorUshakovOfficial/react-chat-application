@@ -10,6 +10,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     //let [socket, setSocket] = useState(null);
     //const [messages, setMessages] = useState([]);
     //const [activeUsers, setActiveUsers] = useState([]);
+    console.log(user);
     console.log("executed this time....")
     //useEffect(() => { 
     //    // New connection 
