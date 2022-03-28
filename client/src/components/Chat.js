@@ -10,7 +10,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     //let [socket, setSocket] = useState(null);
     //const [messages, setMessages] = useState([]);
     //const [activeUsers, setActiveUsers] = useState([]);
-    let socket = io();
+    let socket = io("https://friends-book1.herokuapp.com/", {transports:["websocket"]});
     /*console.log("executed this time....")*/
     //useEffect(() => { 
     //    // New connection 
