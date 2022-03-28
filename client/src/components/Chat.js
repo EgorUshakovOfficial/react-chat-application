@@ -10,40 +10,39 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     //let [socket, setSocket] = useState(null);
     //const [messages, setMessages] = useState([]);
     //const [activeUsers, setActiveUsers] = useState([]);
-    let socket = socketIo.connect('https://friends-book1.herokuapp.com', {
-        withCredentials: true,
-        reconnectionAttempts: "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
-        timeout: 10000, //before connect_error and connect_timeout are emitted.
-        transports: ['websocket']
-    });
 
-    socket.on('connect', () => console.log("User connected to the server..."))
-    /*console.log("executed this time....")*/
-    //useEffect(() => { 
-    //    // New connection 
-    //    let socket = io();
+    useEffect(() => { 
+        // New connection 
+        let socket = socketIo.connect('https://friends-book1.herokuapp.com', {
+            withCredentials: true,
+            reconnectionAttempts: "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
+            timeout: 10000, //before connect_error and connect_timeout are emitted.
+            transports: ['websocket']
+        });
 
-    //    //setSocket(socket)
+        socket.on("connect", () => console.log(`User with ${socket.id} is connected...`))
 
-    //    //// Active users
-    //    //socket.on("user joined", users => {
-    //    //    setActiveUsers(users); 
-    //    //})
+        //setSocket(socket)
 
-    //    //// Disconnected users 
-    //    //socket.on("user left", users => {
-    //    //    setActiveUsers(users);
-    //    //})
+        //// Active users
+        //socket.on("user joined", users => {
+        //    setActiveUsers(users); 
+        //})
 
-    //    //// Messages
-    //    //socket.on("message", data => {
-    //    //    setMessages(messages => [...messages, data]); 
-    //    //})
+        //// Disconnected users 
+        //socket.on("user left", users => {
+        //    setActiveUsers(users);
+        //})
 
-    //    // Clean up
-    //   /* return () => socket.disconnect();*/
+        //// Messages
+        //socket.on("message", data => {
+        //    setMessages(messages => [...messages, data]); 
+        //})
 
-    //}, [])
+        //Clean up
+        return () => socket.disconnect();
+
+    }, [])
     return (
         <div id="chat">
             {/*<Users activeUsers={activeUsers} />*/}
