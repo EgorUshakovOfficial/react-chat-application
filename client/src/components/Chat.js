@@ -10,10 +10,10 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [activeUsers, setActiveUsers] = useState([]);
-
+    const socket = io();
     useEffect(() => { 
         // New connection 
-        const socket = io();
+        
 
         setSocket(socket)
 
