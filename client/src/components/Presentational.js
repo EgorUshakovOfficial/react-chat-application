@@ -16,10 +16,7 @@ const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogi
     let user       = store.getState().user.user;
     let loading = store.getState().load.loading;
     let fetchedAuthToken = store.getState().authToken.fetchedAuthToken;
-    console.log(authToken);
-    console.log(fetchedAuthToken);
-    console.log(user);
-    console.log(loading);
+
     useEffect(() => {
         if (!authToken && fetchedAuthToken === false) {
             fetch('https://friends-book1.herokuapp.com/refreshToken', {
@@ -56,7 +53,7 @@ const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogi
             <Routes>
                 {loading && < Route path="/" element={<div>loading...</div>} />}
                 {(!loading && !user) && < Route path="/" element={<Home updateToken={updateToken} />} />}
-                {(!loading && user) && <Route path="/" element={<Chat user={user} logout={logout} submitNewMessage={submitNewMessage} />} />}
+                {(!loading && Boolean(user)) && <Route path="/" element={<Chat user={user} logout={logout} submitNewMessage={submitNewMessage} />} />}
                 <Route path="*" element={<p>There's nothing here: 404!</p>} />
             </Routes>
         </Router>
