@@ -18,19 +18,19 @@ const Chat = ({ user, submitNewMessage, logout }) => {
         /*setSocket(socket)*/
 
         // Active users
-        socket.on("user joined", users => {
-            setActiveUsers(users); 
-        })
+        //socket.on("user joined", users => {
+        //    setActiveUsers(users); 
+        //})
 
-        // Disconnected users 
-        socket.on("user left", users => {
-            setActiveUsers(users);
-        })
+        //// Disconnected users 
+        //socket.on("user left", users => {
+        //    setActiveUsers(users);
+        //})
 
-        // Messages
-        socket.on("message", data => {
-            setMessages(messages => [...messages, data]); 
-        })
+        //// Messages
+        //socket.on("message", data => {
+        //    setMessages(messages => [...messages, data]); 
+        //})
 
         // Clean up
        /* return () => socket.disconnect();*/
