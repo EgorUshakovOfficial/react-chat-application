@@ -17,6 +17,8 @@ const Chat = ({ user, submitNewMessage, logout }) => {
         timeout: 10000, //before connect_error and connect_timeout are emitted.
         transports: ['websocket']
     });
+
+    socket.on('connect', () => console.log("User connected to the server..."))
     /*console.log("executed this time....")*/
     //useEffect(() => { 
     //    // New connection 
