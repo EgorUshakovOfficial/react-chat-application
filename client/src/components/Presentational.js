@@ -53,7 +53,7 @@ const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogi
             <Routes>
                 {loading && < Route path="/" element={<div>loading...</div>} />}
                 {(!loading && !user) && < Route path="/" element={<Home updateToken={updateToken} />} />}
-                {(!loading && (user.length > 0)) && <Route path="/" element={<Chat user={user} logout={logout} submitNewMessage={submitNewMessage} />} />}
+                {(!loading && (user.length === 1)) && <Route path="/" element={<Chat user={user[0]} logout={logout} submitNewMessage={submitNewMessage} />} />}
                 <Route path="*" element={<p>There's nothing here: 404!</p>} />
             </Routes>
         </Router>
