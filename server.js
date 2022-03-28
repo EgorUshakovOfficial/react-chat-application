@@ -74,22 +74,22 @@ auth();
 routes(app, User);
 
 // Socket Io middleware
-//const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
-//io.use(wrap(session({
-//    key: "express.sid",
-//    cookieParser: cookieParser,
-//    secret: process.env.SESSION_SECRET,
-//    resave: false,
-//    saveUninitialized: true,
-//    cookie: {
-//        secure: true,
-//        maxAge: 86400,
-//        sameSite: "none"
-//    },
-//    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
-//})));
-//io.use(wrap(passport.initialize()));
-//io.use(wrap(passport.session()));
+const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
+io.use(wrap(session({
+    key: "express.sid",
+    cookieParser: cookieParser,
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: true,
+        maxAge: 86400,
+        sameSite: "none"
+    },
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
+})));
+io.use(wrap(passport.initialize()));
+io.use(wrap(passport.session()));
 //io.use((socket, next) => {
 //    if (socket.request.user) {
 //        next();
@@ -101,68 +101,68 @@ routes(app, User);
 // Socket Io events  
 io.on("connection", socket => {
     console.log(`User with ${socket.id} connected`)
-    /*const { firstName, lastName, _id} = socket.request.user; */
+    const { firstName, lastName, _id } = socket.request.user;
    
     // Active users
-    //User
-    //.findOne({_id})
-    //.then(user => {
-    //    user.online = true;
-    //    user.save((err, user) => {
-    //        if (err) {
-    //            console.log(err); 
-    //        }
-    //        User
-    //        .find({ online: true })
-    //        .then(users => {
-    //            users = users.map(user => {
-    //                return {
-    //                    firstName: user.firstName,
-    //                    lastName: user.lastName
-    //                };
-    //            });
-    //            io.emit("user joined", users); 
-    //        })
-    //    })
-    //})
+    User
+    .findOne({_id})
+    .then(user => {
+        user.online = true;
+        user.save((err, user) => {
+            if (err) {
+                console.log(err); 
+            }
+            User
+            .find({ online: true })
+            .then(users => {
+                users = users.map(user => {
+                    return {
+                        firstName: user.firstName,
+                        lastName: user.lastName
+                    };
+                });
+                io.emit("user joined", users); 
+            })
+        })
+    })
 
     // Chatbot message 
-    //socket.broadcast.emit("message", { message: `${firstName} ${lastName} has joined the chat`, id: false });
+    socket.broadcast.emit("message", { message: `${firstName} ${lastName} has joined the chat`, id: false });
 
-    //// Messages 
-    //socket.on("message", data => {
-    //    io.emit("message", data);
-    //})
+    // Messages 
+    socket.on("message", data => {
+        io.emit("message", data);
+    })
 
-    //// Disconnect 
-    //socket.on('disconnect', () => {
-    //    console.log(`User with ${socket.id} connected`)
-    //    User
-    //        .findOne({ _id })
-    //        .then(user => {
-    //            user.online = false;
-    //            user.save((err, user) => {
-    //                if (err) {
-    //                    console.log(err);
-    //                }
-    //                User
-    //                    .find({ online: true })
-    //                    .then(users => {
-    //                        users = users.map(user => {
-    //                            return {
-    //                                firstName: user.firstName,
-    //                                lastName: user.lastName
-    //                            };
-    //                        });
-    //                        // User left 
-    //                        io.emit("user left", users);
-    //                    })
-    //            })
-    //        })
+    // Disconnect 
+    socket.on('disconnect', () => {
+        console.log(`User with ${socket.id} connected`)
+        User
+            .findOne({ _id })
+            .then(user => {
+                user.online = false;
+                user.save((err, user) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    User
+                        .find({ online: true })
+                        .then(users => {
+                            users = users.map(user => {
+                                return {
+                                    firstName: user.firstName,
+                                    lastName: user.lastName
+                                };
+                            });
+                            // User left 
+                            io.emit("user left", users);
+                        })
+                })
+            })
 
-    //    // Disconnect message
-    //    io.emit("message", { message: `${firstName} ${lastName} has left the chat`, id: false });
-    //})
+        // Disconnect message
+        io.emit("message", { message: `${firstName} ${lastName} has left the chat`, id: false });
+    })
 })
 
 // Serve static assets if in production 
