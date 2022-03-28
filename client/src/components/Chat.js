@@ -7,7 +7,7 @@ import ChatHeader from './ChatHeader';
 import chat from '../styles/chat.css';
 
 const Chat = ({ user, submitNewMessage, logout }) => {
-    const [socket, setSocket] = useState(null);
+    /*const [socket, setSocket] = useState(null);*/
     const [messages, setMessages] = useState([]);
     const [activeUsers, setActiveUsers] = useState([]);
     const socket = io();
@@ -15,7 +15,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
         // New connection 
         
 
-        setSocket(socket)
+        /*setSocket(socket)*/
 
   /*      socket.on("connect", () => console.log("User is connected..."))*/
 
