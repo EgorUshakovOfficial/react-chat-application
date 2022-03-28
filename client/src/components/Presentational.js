@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import Home from './Home';
 import Chat from './Chat'; 
+import socketIo from 'socket.io-client';
 
 const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogin}) => {
     const { store } = useContext(ReactReduxContext);
@@ -16,10 +17,14 @@ const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogi
     let user       = store.getState().user.user;
     let loading = store.getState().load.loading;
     let fetchedAuthToken = store.getState().authToken.fetchedAuthToken;
-    console.log(authToken)
-    console.log(fetchedAuthToken)
-    console.log(user)
-    console.log(loading)
+
+    let socket = socketIo.connect('https://friends-book1.herokuapp.com', {
+        withCredentials: true,
+        reconnectionAttempts: "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
+        timeout: 10000, //before connect_error and connect_timeout are emitted.
+        transports: ['websocket']
+    });
+
     useEffect(() => {
         if (!authToken && fetchedAuthToken === false) {
             fetch('https://friends-book1.herokuapp.com/refreshToken', {
