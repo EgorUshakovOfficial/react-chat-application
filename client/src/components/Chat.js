@@ -33,7 +33,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
         })
 
         // Clean up
-        return () => socket.disconnect();
+       /* return () => socket.disconnect();*/
 
     }, [])
     return (
