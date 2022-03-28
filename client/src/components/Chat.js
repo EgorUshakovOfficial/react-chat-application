@@ -16,7 +16,7 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     //    transports: ['websocket']
     //});
 
-    socket.on('connect', () => console.log("User connected to the server..."))
+    //socket.on('connect', () => console.log("User connected to the server..."))
     /*console.log("executed this time....")*/
     //useEffect(() => { 
     //    // New connection 
