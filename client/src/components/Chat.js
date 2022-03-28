@@ -7,17 +7,15 @@ import ChatHeader from './ChatHeader';
 import chat from '../styles/chat.css';
 
 const Chat = ({ user, submitNewMessage, logout }) => {
-    /*const [socket, setSocket] = useState(null);*/
+    let [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [activeUsers, setActiveUsers] = useState([]);
-    const socket = io();
+    console.log("executed this time....")
     useEffect(() => { 
         // New connection 
-        
+        let socket = io();
 
-        /*setSocket(socket)*/
-
-  /*      socket.on("connect", () => console.log("User is connected..."))*/
+        setSocket(socket)
 
         // Active users
         socket.on("user joined", users => {
