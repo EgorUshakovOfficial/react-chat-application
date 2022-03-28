@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { Connection } from '../context/socket'; 
+import socketIo from 'socket.io-client';
 import Messages from './Messages';
 import Users from './Users';
 import ChatHeader from './ChatHeader';
@@ -9,14 +10,14 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     //let [socket, setSocket] = useState(null);
     //const [messages, setMessages] = useState([]);
     //const [activeUsers, setActiveUsers] = useState([]);
-    //let socket = socketIo.connect('https://friends-book1.herokuapp.com', {
-    //    withCredentials: true,
-    //    reconnectionAttempts: "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
-    //    timeout: 10000, //before connect_error and connect_timeout are emitted.
-    //    transports: ['websocket']
-    //});
+    let socket = socketIo.connect('https://friends-book1.herokuapp.com', {
+        withCredentials: true,
+        reconnectionAttempts: "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
+        timeout: 10000, //before connect_error and connect_timeout are emitted.
+        transports: ['websocket']
+    });
 
-    //socket.on('connect', () => console.log("User connected to the server..."))
+    socket.on('connect', () => console.log("User connected to the server..."))
     /*console.log("executed this time....")*/
     //useEffect(() => { 
     //    // New connection 

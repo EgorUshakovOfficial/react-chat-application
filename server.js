@@ -74,29 +74,29 @@ auth();
 routes(app, User);
 
 // Socket Io middleware
-const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
-io.use(wrap(session({
-    key: "express.sid",
-    cookieParser: cookieParser,
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        secure: true,
-        maxAge: 86400,
-        sameSite: "none"
-    },
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
-})));
-io.use(wrap(passport.initialize()));
-io.use(wrap(passport.session()));
-io.use((socket, next) => {
-    if (socket.request.user) {
-        next();
-    } else {
-        next(new Error("unauthorized"))
-    }
-});
+//const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
+//io.use(wrap(session({
+//    key: "express.sid",
+//    cookieParser: cookieParser,
+//    secret: process.env.SESSION_SECRET,
+//    resave: false,
+//    saveUninitialized: true,
+//    cookie: {
+//        secure: true,
+//        maxAge: 86400,
+//        sameSite: "none"
+//    },
+//    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
+//})));
+//io.use(wrap(passport.initialize()));
+//io.use(wrap(passport.session()));
+//io.use((socket, next) => {
+//    if (socket.request.user) {
+//        next();
+//    } else {
+//        next(new Error("unauthorized"))
+//    }
+//});
 
 // Socket Io events  
 io.on("connection", socket => {
