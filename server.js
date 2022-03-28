@@ -11,7 +11,7 @@ const auth = require('./auth/auth');
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
-const io = require("socket.io")(server);
+const io = require("socket.io")(server, );
 const path = require("path");
 
 console.log(server); 
@@ -93,68 +93,68 @@ io.use((socket, next) => {
 // Socket Io events  
 io.on("connection", socket => {
     console.log(`User with ${socket.id} connected`)
-    const { firstName, lastName, _id} = socket.request.user; 
+    /*const { firstName, lastName, _id} = socket.request.user; */
    
     // Active users
-    User
-    .findOne({_id})
-    .then(user => {
-        user.online = true;
-        user.save((err, user) => {
-            if (err) {
-                console.log(err); 
-            }
-            User
-            .find({ online: true })
-            .then(users => {
-                users = users.map(user => {
-                    return {
-                        firstName: user.firstName,
-                        lastName: user.lastName
-                    };
-                });
-                io.emit("user joined", users); 
-            })
-        })
-    })
+    //User
+    //.findOne({_id})
+    //.then(user => {
+    //    user.online = true;
+    //    user.save((err, user) => {
+    //        if (err) {
+    //            console.log(err); 
+    //        }
+    //        User
+    //        .find({ online: true })
+    //        .then(users => {
+    //            users = users.map(user => {
+    //                return {
+    //                    firstName: user.firstName,
+    //                    lastName: user.lastName
+    //                };
+    //            });
+    //            io.emit("user joined", users); 
+    //        })
+    //    })
+    //})
 
     // Chatbot message 
-    socket.broadcast.emit("message", { message: `${firstName} ${lastName} has joined the chat`, id: false });
+    //socket.broadcast.emit("message", { message: `${firstName} ${lastName} has joined the chat`, id: false });
 
-    // Messages 
-    socket.on("message", data => {
-        io.emit("message", data);
-    })
+    //// Messages 
+    //socket.on("message", data => {
+    //    io.emit("message", data);
+    //})
 
-    // Disconnect 
-    socket.on('disconnect', () => {
-        console.log(`User with ${socket.id} connected`)
-        User
-            .findOne({ _id })
-            .then(user => {
-                user.online = false;
-                user.save((err, user) => {
-                    if (err) {
-                        console.log(err);
-                    }
-                    User
-                        .find({ online: true })
-                        .then(users => {
-                            users = users.map(user => {
-                                return {
-                                    firstName: user.firstName,
-                                    lastName: user.lastName
-                                };
-                            });
-                            // User left 
-                            io.emit("user left", users);
-                        })
-                })
-            })
+    //// Disconnect 
+    //socket.on('disconnect', () => {
+    //    console.log(`User with ${socket.id} connected`)
+    //    User
+    //        .findOne({ _id })
+    //        .then(user => {
+    //            user.online = false;
+    //            user.save((err, user) => {
+    //                if (err) {
+    //                    console.log(err);
+    //                }
+    //                User
+    //                    .find({ online: true })
+    //                    .then(users => {
+    //                        users = users.map(user => {
+    //                            return {
+    //                                firstName: user.firstName,
+    //                                lastName: user.lastName
+    //                            };
+    //                        });
+    //                        // User left 
+    //                        io.emit("user left", users);
+    //                    })
+    //            })
+    //        })
 
-        // Disconnect message
-        io.emit("message", { message: `${firstName} ${lastName} has left the chat`, id: false });
-    })
+    //    // Disconnect message
+    //    io.emit("message", { message: `${firstName} ${lastName} has left the chat`, id: false });
+    //})
 })
 
 // Serve static assets if in production 

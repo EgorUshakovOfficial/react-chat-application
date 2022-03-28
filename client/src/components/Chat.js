@@ -10,32 +10,33 @@ const Chat = ({ user, submitNewMessage, logout }) => {
     //let [socket, setSocket] = useState(null);
     //const [messages, setMessages] = useState([]);
     //const [activeUsers, setActiveUsers] = useState([]);
-    console.log("executed this time....")
-    useEffect(() => { 
-        // New connection 
-        let socket = io();
+    let socket = io();
+    /*console.log("executed this time....")*/
+    //useEffect(() => { 
+    //    // New connection 
+    //    let socket = io();
 
-        //setSocket(socket)
+    //    //setSocket(socket)
 
-        //// Active users
-        //socket.on("user joined", users => {
-        //    setActiveUsers(users); 
-        //})
+    //    //// Active users
+    //    //socket.on("user joined", users => {
+    //    //    setActiveUsers(users); 
+    //    //})
 
-        //// Disconnected users 
-        //socket.on("user left", users => {
-        //    setActiveUsers(users);
-        //})
+    //    //// Disconnected users 
+    //    //socket.on("user left", users => {
+    //    //    setActiveUsers(users);
+    //    //})
 
-        //// Messages
-        //socket.on("message", data => {
-        //    setMessages(messages => [...messages, data]); 
-        //})
+    //    //// Messages
+    //    //socket.on("message", data => {
+    //    //    setMessages(messages => [...messages, data]); 
+    //    //})
 
-        // Clean up
-       /* return () => socket.disconnect();*/
+    //    // Clean up
+    //   /* return () => socket.disconnect();*/
 
-    }, [])
+    //}, [])
     return (
         <div id="chat">
             {/*<Users activeUsers={activeUsers} />*/}
