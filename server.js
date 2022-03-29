@@ -76,23 +76,25 @@ routes(app, User);
 
 // Socket Io middleware
 io.use((socket, next) => {
-    try {
+ /*   try {*/
         const token = socket.handshake.auth.token;
-        const payload = jwt.verify(token, process.env.JWT_SECRET);
-        socket.user_id = payload._id;
-        next();
-    }
-    catch (err) {
-        next(err); 
-    }
+        console.log(token);
+        next()
+        //const payload = jwt.verify(token, process.env.JWT_SECRET);
+        //socket.user_id = payload._id;
+    //    next();
+    //}
+    //catch (err) {
+    //    next(err); 
+    //}
 })
-io.use((socket, next) => {
-    if (socket.user_id) {
-        next();
-    } else {
-        next(new Error("unauthorized"))
-    }
-})
+//io.use((socket, next) => {
+//    if (socket.user_id) {
+//        next();
+//    } else {
+//        next(new Error("unauthorized"))
+//    }
+//})
 
 // Socket Io events  
 io.on("connection", socket => {
