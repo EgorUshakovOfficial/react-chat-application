@@ -6,7 +6,7 @@ import Users from './Users';
 import ChatHeader from './ChatHeader';
 import chat from '../styles/chat.css';
 
-const Chat = ({ user, submitNewMessage, logout }) => {
+const Chat = ({ authToken, user, submitNewMessage, logout }) => {
     let [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [activeUsers, setActiveUsers] = useState([]);
@@ -17,7 +17,10 @@ const Chat = ({ user, submitNewMessage, logout }) => {
             withCredentials: true,
             reconnectionAttempts: "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
             timeout: 10000, //before connect_error and connect_timeout are emitted.
-            transports: ['websocket']
+            transports: ['websocket'],
+            auth: {
+                token: authToken
+            }
         });
 
         socket.on("connect", () => console.log(`User with ${socket.id} is connected...`))

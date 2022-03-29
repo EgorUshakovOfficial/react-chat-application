@@ -75,32 +75,23 @@ routes(app, User);
 
 // Socket Io middleware
 io.use((socket, next) => {
-    console.log(socket.handshake.headers.cookie);
+    try {
+        const token = socket.handshake.auth.token;
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        socket.user_id = payload._id;
+        next();
+    }
+    catch (err) {
+        next(err); 
+    }
 })
-//const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
-//io.use()
-//io.use(wrap(session({
-//    key: "express.sid",
-//    cookieParser: cookieParser,
-//    secret: process.env.SESSION_SECRET,
-//    resave: false,
-//    saveUninitialized: true,
-//    cookie: {
-//        secure: true,
-//        maxAge: 86400,
-//        sameSite: "none"
-//    },
-//    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
-//})));
-//io.use(wrap(passport.initialize()));
-//io.use(wrap(passport.session()));
 io.use((socket, next) => {
-    if (socket.request.user) {
+    if (socket.user_id) {
         next();
     } else {
         next(new Error("unauthorized"))
     }
-});
+})
 
 // Socket Io events  
 io.on("connection", socket => {
