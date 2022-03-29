@@ -78,6 +78,7 @@ routes(app, User);
 io.use((socket, next) => {
     try {
         const token = socket.handshake.auth.token;
+        console.log(token);
         const payload = jwt.verify(token, process.env.JWT_SECRET);
         socket.user_id = payload._id;
         next();
