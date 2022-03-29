@@ -79,9 +79,8 @@ io.use((socket, next) => {
     try {
         const token = socket.handshake.auth.token;
         const payload = jwt.verify(token, process.env.JWT_SECRET);
-        socket.user_id = payload._id;
         User
-            .findOne({_id})
+            .findOne({ _id: payload._id})
             .then(user => {
                 socket.user = user;
                 next();
