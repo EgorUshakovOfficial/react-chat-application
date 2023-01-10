@@ -2,7 +2,7 @@ import chatheader from '../styles/chatheader.css';
 
 const ChatHeader = ({ logout, user}) => {
     const handleLogout = () => {
-        fetch('https://friends-book1.herokuapp.com/logout', {
+        fetch('https://chat-application-v8vu.onrender.com/logout', {
             method: "POST",
             headers: {
                 'Content-type': "application/json",
@@ -12,7 +12,7 @@ const ChatHeader = ({ logout, user}) => {
         })
         .then(res => res.json())
         .then(data => {
-            // Disconnect socket when signing out 
+            // Disconnect socket when signing out
             logout();
         })
         .catch(err => {

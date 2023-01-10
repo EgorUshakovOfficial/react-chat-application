@@ -9,7 +9,7 @@ export const fetchLogin = authToken => dispatch => {
     // Requesting user data
     dispatch(requestingUser());
 
-    return fetch('https://friends-book1.herokuapp.com/profile', {
+    return fetch('https://chat-application-v8vu.onrender.com/profile', {
         method: "POST",
         headers: {
             "Content-type": "application/json",
@@ -29,4 +29,4 @@ export const fetchLogin = authToken => dispatch => {
      })
 }
 
-export default fetchLogin; 
+export default fetchLogin;

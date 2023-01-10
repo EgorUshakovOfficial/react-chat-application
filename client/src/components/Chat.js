@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'; 
+import { useEffect, useState, useContext } from 'react';
 import socketIo from 'socket.io-client';
 import Messages from './Messages';
 import Users from './Users';
@@ -10,9 +10,9 @@ const Chat = ({ authToken, user, submitNewMessage, logout }) => {
     const [messages, setMessages] = useState([]);
     const [activeUsers, setActiveUsers] = useState([]);
 
-    useEffect(() => { 
-        // New connection 
-        let socket = socketIo.connect('https://friends-book1.herokuapp.com', {
+    useEffect(() => {
+        // New connection
+        let socket = socketIo.connect('https://chat-application-v8vu.onrender.com', {
             withCredentials: true,
             reconnectionAttempts: "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
             timeout: 10000, //before connect_error and connect_timeout are emitted.
@@ -28,17 +28,17 @@ const Chat = ({ authToken, user, submitNewMessage, logout }) => {
 
         // Active users
         socket.on("user joined", users => {
-            setActiveUsers(users); 
+            setActiveUsers(users);
         })
 
-        // Disconnected users 
+        // Disconnected users
         socket.on("user left", users => {
             setActiveUsers(users);
         })
 
         // Messages
         socket.on("message", data => {
-            setMessages(messages => [...messages, data]); 
+            setMessages(messages => [...messages, data]);
         })
 
         //Clean up
@@ -56,4 +56,4 @@ const Chat = ({ authToken, user, submitNewMessage, logout }) => {
     );
 }
 
-export default Chat; 
+export default Chat;

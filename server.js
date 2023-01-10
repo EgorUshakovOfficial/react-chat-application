@@ -28,20 +28,20 @@ const path = require("path");
 // Dotenv
 require('dotenv').config();
 
-// Connect to db 
+// Connect to db
 mongoose
 .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => console.log("Mongodb connected.."))
 .catch(err => console.log(err));
 
-// Middleware functions 
+// Middleware functions
 const ignoreFavicon = (req, res, next)=>{
     if (req.originalUrl.includes('favicon.ico')) {
         res.status(204).end()
     }
     next();
 }
-// Middleware 
+// Middleware
 app.use(cors({
     origin: "*",
     credentials: true
@@ -71,7 +71,7 @@ app.use(passport.session());
 // Authorization
 auth();
 
-// Routes 
+// Routes
 routes(app, User);
 
 // Socket Io middleware
@@ -86,11 +86,11 @@ io.use((socket, next) => {
                 next();
             })
             .catch(err => {
-                next(err); 
+                next(err);
             })
     }
     catch (err) {
-        next(err); 
+        next(err);
     }
 })
 io.use((socket, next) => {
@@ -101,11 +101,11 @@ io.use((socket, next) => {
     }
 })
 
-// Socket Io events  
+// Socket Io events
 io.on("connection", socket => {
     console.log(`User with ${socket.request.user} connected`)
     const {firstName, lastName, _id} = socket.user;
-   
+
     // Active users
     User
     .findOne({_id})
@@ -113,7 +113,7 @@ io.on("connection", socket => {
         user.online = true;
         user.save((err, user) => {
             if (err) {
-                console.log(err); 
+                console.log(err);
             }
             User
             .find({ online: true })
@@ -124,20 +124,20 @@ io.on("connection", socket => {
                         lastName: user.lastName
                     };
                 });
-                io.emit("user joined", users); 
+                io.emit("user joined", users);
             })
         })
     })
 
-    // Chatbot message 
+    // Chatbot message
     socket.broadcast.emit("message", { message: `${firstName} ${lastName} has joined the chat`, id: false });
 
-    // Messages 
+    // Messages
     socket.on("message", data => {
         io.emit("message", data);
     })
 
-    // Disconnect 
+    // Disconnect
     socket.on('disconnect', () => {
         console.log(`User with ${socket.id} connected`)
         User
@@ -157,7 +157,7 @@ io.on("connection", socket => {
                                     lastName: user.lastName
                                 };
                             });
-                            // User left 
+                            // User left
                             io.emit("user left", users);
                         })
                 })
@@ -168,15 +168,15 @@ io.on("connection", socket => {
     })
 })
 
-// Serve static assets if in production 
+// Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
-    // Set static folder 
+    // Set static folder
     app.use(express.static('client/build'));
 
     app.get("*", (req, res) => {
         res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
     })
 }
-// Initialize server 
+// Initialize server
 const PORT = process.env.PORT || 443;
 server.listen(PORT,  () => console.log(`Listening on port ${PORT}...`));

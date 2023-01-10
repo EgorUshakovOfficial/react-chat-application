@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 const Login = ({ updateToken }) => {
-    // State 
-    const [error, setError] = useState(""); 
+    // State
+    const [error, setError] = useState("");
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     // Submit handler
@@ -15,7 +15,7 @@ const Login = ({ updateToken }) => {
             "Content-type": "application/json"
         }
 
-        fetch('https://friends-book1.herokuapp.com/login', {
+        fetch('https://chat-application-v8vu.onrender.com/login', {
             method: "POST",
             headers,
             body: JSON.stringify({
@@ -26,12 +26,12 @@ const Login = ({ updateToken }) => {
         })
             .then(res => res.json())
             .then(data => {
-                const {authToken} = data; 
+                const {authToken} = data;
                 if (authToken === "") {
                     setError("Wrong user name or password. Try again or click Forgot Password? to reset password")
                 }
                 else {
-                    const { authToken } = data; 
+                    const { authToken } = data;
                     updateToken(authToken);
                 }
             })
@@ -65,4 +65,4 @@ const Login = ({ updateToken }) => {
         </form>
      );
 }
-export default Login; 
+export default Login;

@@ -2,8 +2,8 @@ import { useContext, useState } from 'react';
 import { useNavigate} from 'react-router-dom';
 const Registration = (props) => {
     // States
-    const [success, setSuccess] = useState(""); 
-    const [error, setError] = useState(""); 
+    const [success, setSuccess] = useState("");
+    const [error, setError] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [registerEmail, setRegisterEmail] = useState("");
@@ -12,8 +12,8 @@ const Registration = (props) => {
 
     const handleRegistration = e => {
         e.preventDefault();
-        setError(""); 
-        fetch('https://friends-book1.herokuapp.com/register', {
+        setError("");
+        fetch('https://chat-application-v8vu.onrender.com/register', {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
@@ -85,4 +85,4 @@ const Registration = (props) => {
     );
 }
 
-export default Registration; 
+export default Registration;

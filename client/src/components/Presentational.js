@@ -1,4 +1,4 @@
-import { ReactReduxContext } from 'react-redux'; 
+import { ReactReduxContext } from 'react-redux';
 import { useContext, useState, useEffect } from 'react';
 import {
     BrowserRouter as Router,
@@ -6,11 +6,11 @@ import {
     Route
 } from 'react-router-dom';
 import Home from './Home';
-import Chat from './Chat'; 
+import Chat from './Chat';
 
 const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogin}) => {
     const { store } = useContext(ReactReduxContext);
-  
+
     // Current states
     let authToken  = store.getState().authToken.authToken;
     let user       = store.getState().user.user;
@@ -19,7 +19,7 @@ const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogi
 
     useEffect(() => {
         if (!authToken && fetchedAuthToken === false) {
-            fetch('https://friends-book1.herokuapp.com/refreshToken', {
+            fetch('https://chat-application-v8vu.onrender.com/refreshToken', {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",
@@ -32,11 +32,11 @@ const Presentational = ({ updateToken, submitNewMessage, logout, load, fetchLogi
                         const data = await res.json();
                         updateToken(data.authToken);
                     } else {
-                        updateToken(""); 
+                        updateToken("");
                     }
                 })
                 .catch(err => {
-                    console.log(err); 
+                    console.log(err);
                 })
         }
 
